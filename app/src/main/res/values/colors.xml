@@ -6,4 +6,15 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhiteTransparent">#cccccc</color>
     <color name="darkGray">#636466</color>
+
+    <color name="lightBackground">#353c47</color>
+    <color name="darkBackground">#232733</color>
+    <color name="orange">#ff5419</color>
+    <color name="yellow">#ffc61b</color>
+    <color name="mate_orange">#d48b07</color>
+    <color name="soDarkBluePhone">#121149</color>
+    <color name="darkBluePhone">#273b7a</color>
+    <color name="lightBluePhone">#366695</color>
+    <color name="darkBlueButton">#166CBF</color>
+    <color name="darkRedButton">#E2574C</color>
 </resources>

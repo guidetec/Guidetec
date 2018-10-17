@@ -12,7 +12,7 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        app:srcCompat="@drawable/wa_guidetec" />
+        app:srcCompat="@drawable/ws_guidetec" />
 
 
 </RelativeLayout>

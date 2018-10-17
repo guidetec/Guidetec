@@ -17,7 +17,7 @@ public class SlideAdapter extends PagerAdapter {
     LayoutInflater layoutInflater;
     //Arrays
     public int[] slide_images={
-            R.drawable.wa_guidetec,
+            R.drawable.ws_guidetec,
             R.drawable.ws_maps,
             R.drawable.ws_route,
             R.drawable.ws_augmented,

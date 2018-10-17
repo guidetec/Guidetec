@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:id="@+id/splashLayout"
-    tools:context=".account.SignupActivity"
+    tools:context=".account.SigninActivity"
     android:animateLayoutChanges="true">
 
     <RelativeLayout
@@ -22,7 +22,7 @@
             android:layout_height="160dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/wa_guidetec" />
+            app:srcCompat="@drawable/ws_guidetec" />
 
         <RelativeLayout
             android:id="@+id/rellay1_signup"
@@ -51,7 +51,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Correo"
+                    android:text="Nombre"
                     android:fontFamily="sans-serif-light"
                     android:textAllCaps="true"
                     android:textColor="@color/colorWhiteTransparent"
@@ -67,14 +67,46 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:layout_marginTop="5dp"
-                    android:inputType="textEmailAddress"
-                    android:id="@+id/etEmail_signup"
+                    android:inputType="textPersonName"
+                    android:id="@+id/mNameFieldR"
                     android:maxLines="1"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linlay1_signup"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Correo"
+                        android:fontFamily="sans-serif-light"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="15sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="40"
+                        android:layout_height="40dp"
+                        android:background="@drawable/et_bg"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorWhite"
+                        android:fontFamily="san-serif-light"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/mEmailFieldR"
+                        android:focusableInTouchMode="true"
+                        android:maxLines="1"
+                        android:imeOptions="actionUnspecified"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginTop="20dp">
 
@@ -90,6 +122,7 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:inputType="textPassword"
+                        android:id="@+id/mPasswordFieldR"
                         android:maxLength="20"
                         android:layout_height="40dp"
                         android:background="@drawable/et_bg"
@@ -99,7 +132,6 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
                         android:layout_marginTop="5dp"
-                        android:id="@+id/etPassword_signup"
                         android:focusableInTouchMode="true"
                         android:maxLines="1"
                         android:imeOptions="actionUnspecified"/>
@@ -120,12 +152,10 @@
                 android:paddingRight="70dp"
                 android:layout_centerHorizontal="true"
                 android:textSize="16sp"
-                android:id="@+id/btnSignup"/>
+                android:id="@+id/signInButton"/>
 
         </RelativeLayout>
 
     </RelativeLayout>
-
-
 
 </RelativeLayout>

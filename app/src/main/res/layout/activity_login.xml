@@ -22,7 +22,7 @@
             android:layout_height="160dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/wa_guidetec" />
+            app:srcCompat="@drawable/ws_guidetec" />
 
         <RelativeLayout
             android:id="@+id/rellay1"
@@ -52,7 +52,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Usuario"
+                    android:text="Correo"
                     android:fontFamily="sans-serif-light"
                     android:textAllCaps="true"
                     android:textColor="@color/colorWhiteTransparent"
@@ -70,7 +70,7 @@
                     android:paddingRight="15dp"
                     android:layout_marginTop="5dp"
                     android:inputType="textEmailAddress"
-                    android:id="@+id/etEmail"/>
+                    android:id="@+id/mEmailField"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -100,7 +100,7 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
                         android:layout_marginTop="5dp"
-                        android:id="@+id/etPassword"/>
+                        android:id="@+id/mPasswordField"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -118,7 +118,104 @@
                 android:paddingRight="70dp"
                 android:layout_centerHorizontal="true"
                 android:textSize="16sp"
-                android:id="@+id/btnLog"/>
+                android:id="@+id/logInButton"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/registerLayout"
+            android:layout_below="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/reg_tvlogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingresar"
+                android:textSize="30sp"
+                android:textColor="@color/colorWhiteTransparent"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="20dp"/>
+
+            <LinearLayout
+                android:id="@+id/reg_linlay1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/reg_tvlogin"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Usuario"
+                    android:fontFamily="sans-serif-light"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorWhiteTransparent"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:maxLength="40"
+                    android:layout_height="40dp"
+                    android:background="@drawable/et_bg"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorWhite"
+                    android:fontFamily="san-serif-light"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:inputType="textEmailAddress"
+                    android:id="@+id/reg_etEmail"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/reg_linlay1"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Contraseña"
+                        android:fontFamily="sans-serif-light"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="15sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:inputType="textPassword"
+                        android:maxLength="20"
+                        android:layout_height="40dp"
+                        android:background="@drawable/et_bg"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorWhite"
+                        android:fontFamily="san-serif-light"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/reg_etPassword"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@id/reg_linlay1"
+                android:layout_marginTop="50dp"
+                android:text="Registrarse"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_bg"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="san-serif-medium"
+                android:paddingLeft="70dp"
+                android:paddingRight="70dp"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:id="@+id/reg_btnLog"/>
 
         </RelativeLayout>
 
@@ -135,7 +232,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:id="@+id/btnReg"
+            android:id="@+id/regisButton"
             android:layout_height="wrap_content"
             android:background="@null"
             android:text="Registrarse"
@@ -144,6 +241,7 @@
             android:fontFamily="sans-serif"/>
         <Button
             android:layout_width="wrap_content"
+            android:id="@+id/recButton"
             android:layout_height="wrap_content"
             android:background="@null"
             android:text="Recuperar contraseña"
