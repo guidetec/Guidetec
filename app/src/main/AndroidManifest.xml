@@ -9,23 +9,26 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name=".myapp.MyApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_guidetec"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".account.WelcomeActivity" />
+        <activity android:name=".account.SigninActivity" />
+        <activity android:name=".account.ResetPasswordActivity" />
+        <activity android:name=".account.LoginActivity" />
+        <activity
+            android:name=".splashscreen.SplashActivity"
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".WelcomeActivity" />
-        <activity android:name=".account.SigninActivity" />
-        <activity android:name=".account.ResetPasswordActivity" />
-        <activity android:name=".account.LoginActivity"></activity>
     </application>
 
 </manifest>

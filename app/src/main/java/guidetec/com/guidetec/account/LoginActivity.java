@@ -1,17 +1,20 @@
 package guidetec.com.guidetec.account;
 
+import android.app.Dialog;
 import android.content.Intent;
-import android.os.Handler;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +23,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import guidetec.com.guidetec.activities.MainActivity;
 import guidetec.com.guidetec.R;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener{
@@ -31,18 +35,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
     RelativeLayout rellay1,rellay2;
 
+    //Dialog
+    Dialog dialog;
+    TextView logInFailTitle,logInFailDescription;
+    ImageView logInCorrectClose,logInFailClose;
+    Button logInCorrectAccept,logInFailAccept;
+
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
 
-    Handler handler=new Handler();
-    Runnable runnable=new Runnable() {
-        @Override
-        public void run() {
-            rellay1.setVisibility(View.VISIBLE);
-            rellay2.setVisibility(View.VISIBLE);
-        }
-    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         //Views
         mEmailField=(EditText)findViewById(R.id.mEmailField);
         mPasswordField=(EditText)findViewById(R.id.mPasswordField);
+
+        //Dialog
+        dialog=new Dialog(this);
 
         rellay1=(RelativeLayout)findViewById(R.id.rellay1);
         rellay2=(RelativeLayout)findViewById(R.id.rellay2);
@@ -65,17 +71,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
-
-        handler.postDelayed(runnable,2000);
+        //FirebaseUser current=mAuth.getCurrentUser();
     }
 
     // [START on_start_check_user]
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
+        //Toast.makeText(LoginActivity.this,"OnStart",Toast.LENGTH_LONG);
     }
     // [END on_start_check_user]
 
@@ -98,14 +101,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, "Authentication done.",
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(user);
+                            if(!user.isEmailVerified()){
+                                hideProgressDialog();
+                                ShowFailPopup();
+                            }
+                            else{
+                                hideProgressDialog();
+                                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            hideProgressDialog();
                             //updateUI(null);
                         }
 
@@ -113,7 +124,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                         if (!task.isSuccessful()) {
                             //mStatusTextView.setText(R.string.auth_failed);
                         }
-                        hideProgressDialog();
+
                         // [END_EXCLUDE]
                     }
                 });
@@ -142,13 +153,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         return valid;
     }
 
-    private boolean isValidEmail(String email){
-        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-    private boolean isValidPassword(String pass){
-        return pass.length()>4;
-    }
-
     @Override
     public void onClick(View v) {
         int i=v.getId();
@@ -159,5 +163,63 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         else if (i == R.id.logInButton) {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
         }
+    }
+    public void ShowFailPopup(){
+        dialog.setContentView(R.layout.message_login_fail);
+        logInFailClose=(ImageView)dialog.findViewById(R.id.logInFailClose);
+        logInFailAccept=(Button)dialog.findViewById(R.id.logInFailAccept);
+        logInFailTitle=(TextView)dialog.findViewById(R.id.logInFailTitle);
+        logInFailDescription=(TextView)dialog.findViewById(R.id.logInFailDescription);
+
+        //Config
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        //Set text
+        logInFailAccept.setText("Reenviar correo");
+        logInFailTitle.setText("¡Inicio de sesión fallido!");
+        logInFailDescription.setText("No se ha confirmado el correo electrónico. Por favor verifícalo para poder iniciar sesión.");
+
+        logInFailClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                dialog.dismiss();
+            }
+        });
+
+        logInFailAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendEmailVerification();
+                mAuth.signOut();
+                dialog.dismiss();
+            }
+        });
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+    private void sendEmailVerification() {
+        // Send verification email
+        // [START send_email_verification]
+        final FirebaseUser user = mAuth.getCurrentUser();
+        user.sendEmailVerification()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if (task.isSuccessful()) {
+                            /*Toast.makeText(SigninActivity.this,
+                                    "Verification email sent to " + user.getEmail(),
+                                    Toast.LENGTH_SHORT).show();*/
+                        } else {
+                            Log.e(TAG, "sendEmailVerification", task.getException());
+                            /*Toast.makeText(SigninActivity.this,
+                                    "Failed to send verification email",
+                                    Toast.LENGTH_SHORT).show();*/
+                        }
+                        // [END_EXCLUDE]
+                    }
+                });
+        // [END send_email_verification]
     }
 }

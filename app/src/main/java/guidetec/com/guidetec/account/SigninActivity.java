@@ -166,6 +166,8 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
     }
     public void ShowCorrectPupup(){
         dialog.setContentView(R.layout.message_sigin_correct);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         sigInCorrectClose=(ImageView)dialog.findViewById(R.id.sigInCorrectClose);
         sigInCorrectAccept=(Button)dialog.findViewById(R.id.sigInCorrecAccept);
 
@@ -173,6 +175,7 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                mAuth.signOut();
                 finish();
             }
         });
@@ -180,6 +183,7 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                mAuth.signOut();
                 finish();
             }
         });

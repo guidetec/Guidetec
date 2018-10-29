@@ -1,4 +1,4 @@
-package guidetec.com.guidetec;
+package guidetec.com.guidetec.account;
 
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
@@ -8,7 +8,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import guidetec.com.guidetec.account.LoginActivity;
+import guidetec.com.guidetec.R;
+import guidetec.com.guidetec.activities.SlideAdapter;
 
 public class WelcomeActivity extends AppCompatActivity {
 

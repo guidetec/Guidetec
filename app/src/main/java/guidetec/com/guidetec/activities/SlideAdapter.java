@@ -1,4 +1,4 @@
-package guidetec.com.guidetec;
+package guidetec.com.guidetec.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import guidetec.com.guidetec.R;
 
 public class SlideAdapter extends PagerAdapter {
 
