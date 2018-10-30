@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/navigation_map"
+        android:icon="@drawable/ic_map"
+        android:title="Mapa"/>
+
+    <item android:id="@+id/navigation_place"
+        android:icon="@drawable/ic_places"
+        android:title="Lugares" />
+
+    <item android:id="@+id/navigation_augmented"
+        android:icon="@drawable/ic_augmented"
+        android:title="Interacción"/>
+
+    <item android:id="@+id/navigation_message"
+        android:icon="@drawable/ic_message"
+        android:title="Mensajes"/>
+
+    <item android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="Perfil"/>
+
+
 </menu>

@@ -8,4 +8,7 @@
     <string name="message_sigin_fail_title">¡Registro fallido!</string>
     <string name="message_sigin_fail_desciption">El registro no se ha completado. Es posible que el correo ya se encuentre registrado</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
