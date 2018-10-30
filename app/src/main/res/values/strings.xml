@@ -2,6 +2,7 @@
     <string name="app_name">Guidetec</string>
     <string name="loading">Cargando…</string>
     <string name="auth_failed">Authentication failed</string>
+    <string name="mapboxToken">pk.eyJ1IjoiZ3VpZGV0ZWMiLCJhIjoiY2ptbWo0aTUyMDI5ZjNrbHVxYnFob29uaSJ9.DVPv3_Q8H_2-oDr784OYug</string>
 
     <string name="message_sigin_correct_title">¡Registro exitoso!</string>
     <string name="message_sigin_correct_desciption">Ahora revisa tu bandeja de entrada y confirma tu correo para poder iniciar sesión</string>
