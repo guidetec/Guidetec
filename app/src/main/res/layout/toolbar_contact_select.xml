@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/darkBluePhone"
+    android:id="@+id/toolbar_contacts"
+    android:elevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageButton
+            android:id="@+id/btn_contact_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_back"
+            android:layout_marginRight="16dp"
+            android:background="@null"/>
+        <TextView
+            android:id="@+id/tv_contact_new"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/btn_contact_back"
+            android:text="Agencias asociadas"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_contact_busqueda"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@+id/btn_contact_search"
+            android:layout_toEndOf="@id/btn_contact_back"
+            android:layout_marginRight="16dp"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/edit_contact_texto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingRight="34dp"
+                android:background="@drawable/et_search_bg"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/darkBluePhone"
+                android:hint="Buscar..."
+                android:lines="1"
+                android:maxLength="100"/>
+            <ImageButton
+                android:id="@+id/btn_contact_close"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:background="@null"
+                android:src="@drawable/ic_close_white"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/btn_contact_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_toStartOf="@+id/btn_contact_refresh"
+            android:layout_toLeftOf="@id/btn_contact_refresh"
+            android:background="@null"
+            android:src="@drawable/ic_search" />
+
+        <ImageButton
+            android:id="@+id/btn_contact_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@null"
+            android:src="@drawable/ic_refresh" />
+    </RelativeLayout>
+
+
+</android.support.v7.widget.Toolbar>

@@ -17,4 +17,5 @@
     <color name="lightBluePhone">#366695</color>
     <color name="darkBlueButton">#166CBF</color>
     <color name="darkRedButton">#E2574C</color>
+    <color name="black">#000000</color>
 </resources>

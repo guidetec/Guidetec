@@ -20,6 +20,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.util.HashMap;
 
 import guidetec.com.guidetec.R;
 
@@ -31,6 +36,9 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
+
+    //Databse reference
+    DatabaseReference reference;
 
     //Dialog
     Dialog dialog;
@@ -80,11 +88,26 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //Toast.makeText(SigninActivity.this, "Registro exitoso",Toast.LENGTH_SHORT).show();
-                            sendEmailVerification();
-                            hideProgressDialog();
-                            ShowCorrectPupup();
-                            //finish();
-                            //updateUI(user);
+
+                            assert user != null;
+                            String userId=user.getUid();
+
+                            reference=FirebaseDatabase.getInstance().getReference("usuarios").child(userId);
+
+                            HashMap<String,String> hashMap=new HashMap<>();
+                            hashMap.put("id",userId);
+                            hashMap.put("name",mNameFieldR.getText().toString());
+                            hashMap.put("image_url","default");
+
+                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    sendEmailVerification();
+                                    hideProgressDialog();
+                                    ShowCorrectPupup();
+                                }
+                            });
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

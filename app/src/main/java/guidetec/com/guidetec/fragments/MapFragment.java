@@ -42,7 +42,7 @@ public class MapFragment extends Fragment {
 
         return  view;
     }
-
+/*
     @Override
     public void onStart() {
         super.onStart();
@@ -83,5 +83,5 @@ public class MapFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
-    }
+    }*/
 }
