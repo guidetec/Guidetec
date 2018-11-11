@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_fullscreen_exit_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_more_vert_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -34,10 +34,8 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="opacityPercent" value="90" />
-                            <entry key="outputName" value="ic_fullscreen_exit" />
-                            <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\Julio\Downloads\hat (1).svg" />
+                            <entry key="outputName" value="ic_more_vert" />
+                            <entry key="sourceFile" value="G:\iconos\route.svg" />
                           </map>
                         </option>
                       </PersistentState>

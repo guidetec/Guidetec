@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,24 +11,75 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <include layout="@layout/toolbar_map_fragment"
+            android:id="@+id/tool_mapfra"/>
+
         <com.mapbox.mapboxsdk.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/tool_mapfra"
             mapbox:mapbox_cameraTargetLat="40.73581"
             mapbox:mapbox_cameraTargetLng="-73.99155"
             mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
             mapbox:mapbox_cameraZoom="11" />
-
         <Button
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/et_search_bg"
-            android:layout_marginBottom="10dp"
+            android:id="@+id/fab_controls_ar"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:background="@drawable/btn_controlsmap_bg"
+            android:layout_marginBottom="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:elevation="6dp"
+            android:text="Filtros"
+            android:textColor="#636466"
+            android:textAllCaps="false"
+            android:drawablePadding="10dp"
+            android:textStyle="bold"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"/>
-
+            android:layout_alignParentBottom="true"
+            android:drawableLeft="@drawable/ic_controls_on"/>
     </RelativeLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fb_navigation_vision"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="144dp"
+        android:layout_marginRight="16dp"
+        android:layout_gravity="bottom|right"
+        android:background="@color/colorWhite"
+        android:backgroundTint="@color/colorWhite"
+        android:elevation="6dp"
+        android:src="@drawable/ic_vision"
+        mapbox:backgroundTint="@color/colorWhite"/>
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fb_navigation_normal"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="bottom|right"
+            android:background="@color/colorWhite"
+            android:backgroundTint="@color/colorWhite"
+            android:elevation="6dp"
+            android:src="@drawable/ic_navigation"
+            mapbox:backgroundTint="@color/colorWhite"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fb_location"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_gravity="bottom|right"
+        android:background="@color/colorWhite"
+        android:backgroundTint="@color/colorWhite"
+        android:elevation="6dp"
+        android:src="@drawable/ic_gps"
+        mapbox:backgroundTint="@color/colorWhite"/>
 
 </FrameLayout>

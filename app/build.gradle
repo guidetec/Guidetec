@@ -44,6 +44,9 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
 
+    //For de FAB with submenus
+    implementation 'io.github.yavski:fab-speed-dial:1.0.6'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

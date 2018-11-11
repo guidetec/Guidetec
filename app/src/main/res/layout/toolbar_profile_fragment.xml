@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/darkBluePhone"
+    android:id="@+id/toolbar_contacts"
+    android:elevation="4dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Configuración de cuenta"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"/>
+        <ImageButton
+            android:id="@+id/btn_message_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentEnd="true"
+            android:background="@null"
+            android:src="@drawable/ic_more_vert"
+            />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.Toolbar>

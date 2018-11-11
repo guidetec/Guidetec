@@ -1,18 +1,23 @@
 package guidetec.com.guidetec.fragments;
 
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.internal.NavigationMenu;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.maps.MapView;
 
 import guidetec.com.guidetec.R;
+import io.github.yavski.fabspeeddial.FabSpeedDial;
+
+import static android.support.constraint.Constraints.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +25,7 @@ import guidetec.com.guidetec.R;
 public class MapFragment extends Fragment {
 
     private MapView mapView;
+    private Button fab_controls_ar;
 
     public MapFragment() {
         // Required empty public constructor
@@ -39,6 +45,15 @@ public class MapFragment extends Fragment {
         Mapbox.getInstance(getActivity(), "pk.eyJ1IjoiZ3VpZGV0ZWMiLCJhIjoiY2ptbWo0aTUyMDI5ZjNrbHVxYnFob29uaSJ9.DVPv3_Q8H_2-oDr784OYug");
         mapView = (MapView) view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
+
+        fab_controls_ar=(Button)view.findViewById(R.id.fab_controls_ar);
+        fab_controls_ar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetFragmentAr fragment = new BottomSheetFragmentAr();
+                fragment.show(getActivity().getSupportFragmentManager(), TAG);
+            }
+        });
 
         return  view;
     }
