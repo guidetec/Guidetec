@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 // Add map fragment to parent container
                 //transaction.add(R.id.main_container, mapFragment, "com.mapbox.map");
                 //transaction.commit();
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,mapFragment2).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,mapFragment).commit();
                 return true;
             case R.id.navigation_place:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,placeFragment).commit();
