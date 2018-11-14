@@ -24,14 +24,20 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.location.LocationComponent;
+import com.mapbox.mapboxsdk.location.modes.RenderMode;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.SupportMapFragment;
+
+import java.util.HashMap;
 
 import guidetec.com.guidetec.R;
 import guidetec.com.guidetec.account.LoginActivity;
@@ -41,7 +47,7 @@ import guidetec.com.guidetec.fragments.MessageFragment;
 import guidetec.com.guidetec.fragments.PlaceFragment;
 import guidetec.com.guidetec.fragments.ProfileFragment;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private FirebaseAuth auth;
     TextView tv;
@@ -111,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        Location location=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
         if (savedInstanceState == null) {
             LatLng currenteLocation = new LatLng(location.getLatitude(), location.getLongitude());
@@ -132,28 +138,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentByTag("com.mapbox.map");
         }
 
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(MapboxMap mapboxMap) {
-                //Customize map with marquers, polyline, etc
-            }
-        });
-
-        /*
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        authListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user == null) {
-                    // user auth state is changed - user is null
-                    // launch login activity
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    finish();
-                }
-            }
-        };*/
+        mapFragment.getMapAsync(this);
+        //loadPlace();
     }
+    public void loadPlace(){
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
+        HashMap<String, Object> hashMap=new HashMap<>();
+        hashMap.put("id","PLC000003");
+        hashMap.put("nombre","Instituto Tecnológico de Chihuahua");
+        hashMap.put("resena","ITC es el más viejo");
+        hashMap.put("lat","28.662197");
+        hashMap.put("lon","-106.080816");
+        hashMap.put("gratis",1);
+        hashMap.put("interactuar",0);
+
+        reference.child("lugares").push().setValue(hashMap);
+    }
+
     // this listener will be called when there is change in firebase user session
     FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
         @SuppressLint("SetTextI18n")
@@ -170,43 +171,66 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         }
     };
+
     @Override
     public void onStart() {
         super.onStart();
 
         //auth.addAuthStateListener(authListener);
     }
+
     @Override
     public void onStop() {
         super.onStop();
         //if (authListener != null) {
-          //  auth.removeAuthStateListener(authListener);
+        //  auth.removeAuthStateListener(authListener);
         //}
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.navigation_map:
                 // Add map fragment to parent container
                 //transaction.add(R.id.main_container, mapFragment, "com.mapbox.map");
                 //transaction.commit();
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,mapFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, mapFragment2).commit();
                 return true;
             case R.id.navigation_place:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,placeFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, placeFragment).commit();
                 return true;
             case R.id.navigation_augmented:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,arFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, arFragment).commit();
                 return true;
             case R.id.navigation_message:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,messageFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, messageFragment).commit();
                 return true;
             case R.id.navigation_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,profileFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, profileFragment).commit();
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onMapReady(MapboxMap mapboxMap) {
+        LocationComponent locationComponent = mapboxMap.getLocationComponent();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationComponent.activateLocationComponent(this);
+        locationComponent.setLocationComponentEnabled(true);
+        locationComponent.setRenderMode(RenderMode.COMPASS);
+        Toast.makeText(this,"Se ha puesto la marca",Toast.LENGTH_LONG).show();
+
     }
 }

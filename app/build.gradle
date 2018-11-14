@@ -47,6 +47,10 @@ dependencies {
     //For de FAB with submenus
     implementation 'io.github.yavski:fab-speed-dial:1.0.6'
 
+    //For navigation
+    //implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.23.0'
+
 }
+
 
 apply plugin: 'com.google.gms.google-services'

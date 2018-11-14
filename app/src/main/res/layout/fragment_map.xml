@@ -23,7 +23,7 @@
             mapbox:mapbox_cameraTargetLat="40.73581"
             mapbox:mapbox_cameraTargetLng="-73.99155"
             mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
-            mapbox:mapbox_cameraZoom="11" />
+            mapbox:mapbox_cameraZoom="13" />
         <Button
             android:id="@+id/fab_controls_ar"
             android:layout_width="wrap_content"
