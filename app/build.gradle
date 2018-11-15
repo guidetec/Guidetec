@@ -37,19 +37,15 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.1'
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.2'
-
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
-
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-
     //For de FAB with submenus
     implementation 'io.github.yavski:fab-speed-dial:1.0.6'
-
     //For navigation
-    //implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.23.0'
-
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.2'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.5.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.23.0'
 }
 
 

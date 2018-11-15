@@ -139,20 +139,35 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         mapFragment.getMapAsync(this);
-        //loadPlace();
+        //loadCommerce();
     }
     public void loadPlace(){
         DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
         HashMap<String, Object> hashMap=new HashMap<>();
-        hashMap.put("id","PLC000003");
-        hashMap.put("nombre","Instituto Tecnológico de Chihuahua");
-        hashMap.put("resena","ITC es el más viejo");
-        hashMap.put("lat","28.662197");
-        hashMap.put("lon","-106.080816");
+        hashMap.put("id","PLC000007");
+        hashMap.put("nombre","Plaza San Agustín");
+        hashMap.put("resena","Centro");
+        hashMap.put("lat","28.665766");
+        hashMap.put("lon","-106.091027");
         hashMap.put("gratis",1);
         hashMap.put("interactuar",0);
 
         reference.child("lugares").push().setValue(hashMap);
+    }
+    public void loadCommerce(){
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
+        HashMap<String, Object> hashMap=new HashMap<>();
+        hashMap.put("id","COM000003");
+        hashMap.put("nombre","Dionisio");
+        hashMap.put("resena","Un bar informal");
+        hashMap.put("lat","28.628692");
+        hashMap.put("lon","-106.099499");
+        hashMap.put("open","07:00");
+        hashMap.put("close","24:00");
+        hashMap.put("calif",3);
+        hashMap.put("dom","Blvd. Antonio Ortiz Mena 3403, Int. 22, Puerta del Sol, Campestre-Lomas, 31060 Chihuahua, Chihuahua");
+
+        reference.child("comercios").push().setValue(hashMap);
     }
 
     // this listener will be called when there is change in firebase user session

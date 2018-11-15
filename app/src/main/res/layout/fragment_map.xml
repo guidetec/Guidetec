@@ -67,7 +67,7 @@
             android:background="@color/colorWhite"
             android:backgroundTint="@color/colorWhite"
             android:elevation="6dp"
-            android:src="@drawable/ic_navigation"
+            android:src="@drawable/ic_navigation_personal"
             mapbox:backgroundTint="@color/colorWhite"/>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fb_location"
