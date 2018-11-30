@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MessageActivity"
-    android:background="@color/colorWhiteTransparent">
+    android:background="@color/cream">
 
     <include layout="@layout/toolbar_message"
         android:id="@+id/toolbar_message_activity"/>
@@ -15,7 +15,9 @@
         android:layout_height="match_parent"
         android:id="@+id/recycler_view_message"
         android:layout_below="@id/toolbar_message_activity"
-        android:layout_above="@id/layout_message"></android.support.v7.widget.RecyclerView>
+        android:layout_above="@id/layout_message">
+
+    </android.support.v7.widget.RecyclerView>
     <RelativeLayout
         android:id="@+id/layout_message"
         android:layout_width="match_parent"

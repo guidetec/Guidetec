@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import guidetec.com.guidetec.R;
 import guidetec.com.guidetec.account.LoginActivity;
+import guidetec.com.guidetec.activities.GuiboActivity;
 import guidetec.com.guidetec.activities.MainActivity;
 
 /**
@@ -21,7 +22,7 @@ import guidetec.com.guidetec.activities.MainActivity;
  */
 public class ProfileFragment extends Fragment {
 
-    Button logout;
+    Button logout,btn_profile_guibo;
     FirebaseAuth auth;
     View vista;
     public ProfileFragment() {
@@ -52,6 +53,13 @@ public class ProfileFragment extends Fragment {
                 auth.signOut();
                 startActivity(new Intent(getActivity(),LoginActivity.class));
                 getActivity().finish();
+            }
+        });
+        btn_profile_guibo=(Button)vista.findViewById(R.id.btn_profile_guibo);
+        btn_profile_guibo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity((new Intent(getActivity(),GuiboActivity.class)));
             }
         });
 

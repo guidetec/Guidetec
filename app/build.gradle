@@ -22,6 +22,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/INDEX.LIST'
+    }
 }
 
 dependencies {
@@ -46,6 +57,15 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.2'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.5.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.23.0'
+
+    //DialogFlow SDK dependences
+    implementation 'ai.api:sdk:2.0.7@arr'
+    implementation 'ai.api:libai:1.6.12'
+
+    //Java V2
+    implementation 'com.google.cloud:google-cloud-dialogflow:0.67.0-alpha'
+    //for Remote procedure call
+    implementation 'io.grpc:grpc-okhttp:1.15.1'
 }
 
 

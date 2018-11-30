@@ -35,7 +35,9 @@
         <activity
             android:name=".activities.ContactSelect"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.MessageActivity"></activity>
+        <activity android:name=".activities.MessageActivity" />
+        <activity android:name=".activities.GuiboActicity" />
+        <activity android:name=".activities.GuiboActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/darkBluePhone"
+    android:id="@+id/toolbar_message_guibo"
+    android:elevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageButton
+            android:id="@+id/btn_guibo_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_back"
+            android:background="@null"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ci_message_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/btn_guibo_back"
+            android:src="@drawable/ic_hunter"/>
+        <TextView
+            android:id="@+id/tv_message_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:layout_toRightOf="@id/ci_message_profile"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:text="Guibo"
+            android:gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/btn_message_call"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@null"
+            android:src="@drawable/ic_rate" />
+    </RelativeLayout>
+
+</android.support.v7.widget.Toolbar>
