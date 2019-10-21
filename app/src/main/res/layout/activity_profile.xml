@@ -276,7 +276,7 @@
                         <TextView
                                 android:id="@+id/call_title"
                                 android:gravity="center"
-                                android:text="Califica Agrobit"
+                                android:text="Califica Yeiyá"
                                 android:textColor="@color/textGray"
                                 android:fontFamily="sans-serif-light"
                                 android:textSize="16sp"
@@ -327,6 +327,11 @@
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>
+        <include
+            android:id="@+id/apProgressBar"
+            android:visibility="gone"
+            layout="@layout/loading_screen"
+            />
     </RelativeLayout>
 
 

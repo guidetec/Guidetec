@@ -1,12 +1,12 @@
-package guidetec.com.guidetec.activities;
+package guidetec.com.guidetec.fragments;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -37,9 +37,10 @@ import ai.api.AIServiceContextBuilder;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
 import guidetec.com.guidetec.R;
+import guidetec.com.guidetec.activities.MainActivity;
 import guidetec.com.guidetec.objects.RequestJavaV2Task;
 
-public class GuiboActivity extends AppCompatActivity {
+public class ChatFragment extends Fragment {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int USER = 10001;
@@ -60,25 +61,26 @@ public class GuiboActivity extends AppCompatActivity {
 
     private ImageButton btn_guibo_back;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guibo);
 
-        Toolbar toolbar =findViewById(R.id.toolbar_message_guibo);
-        setSupportActionBar(toolbar);
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
 
-
-        final ScrollView scrollview = findViewById(R.id.chatScrollView);
+        final ScrollView scrollview = view.findViewById(R.id.chatScrollView);
         scrollview.post(() -> scrollview.fullScroll(ScrollView.FOCUS_DOWN));
 
-        chatLayout = findViewById(R.id.chatLayout);
+        chatLayout = view.findViewById(R.id.chatLayout);
 
-        ImageView sendBtn = findViewById(R.id.sendBtn);
+        ImageView sendBtn = view.findViewById(R.id.sendBtn);
         sendBtn.setOnClickListener(this::sendMessage);
 
-        queryEditText = findViewById(R.id.queryEditText);
-        queryEditText.setOnKeyListener((view, keyCode, event) -> {
+        queryEditText = view.findViewById(R.id.queryEditText);
+        queryEditText.setOnKeyListener((vista, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_DPAD_CENTER:
@@ -97,14 +99,8 @@ public class GuiboActivity extends AppCompatActivity {
 
         // Java V2
         initV2Chatbot();
+        return view;
 
-        btn_guibo_back=(ImageButton)findViewById(R.id.btn_guibo_back);
-        btn_guibo_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
     private void initChatbot() {
         final AIConfiguration config = new AIConfiguration("28e0723ffaade3bdca4067c9ea03452639e041d5",
@@ -132,7 +128,7 @@ public class GuiboActivity extends AppCompatActivity {
     private void sendMessage(View view) {
         String msg = queryEditText.getText().toString();
         if (msg.trim().isEmpty()) {
-            Toast.makeText(GuiboActivity.this, "Please enter your query!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getContext(), "Please enter your query!", Toast.LENGTH_LONG).show();
         } else {
             showTextView(msg, USER);
             queryEditText.setText("");
@@ -143,7 +139,7 @@ public class GuiboActivity extends AppCompatActivity {
 
             // Java V2
             QueryInput queryInput = QueryInput.newBuilder().setText(TextInput.newBuilder().setText(msg).setLanguageCode("es")).build();
-            new RequestJavaV2Task(GuiboActivity.this, session, sessionsClient, queryInput).execute();
+            new RequestJavaV2Task(this, session, sessionsClient, queryInput).execute();
         }
     }
 
@@ -193,12 +189,12 @@ public class GuiboActivity extends AppCompatActivity {
     }
 
     FrameLayout getUserLayout() {
-        LayoutInflater inflater = LayoutInflater.from(GuiboActivity.this);
+        LayoutInflater inflater = LayoutInflater.from(this.getContext());
         return (FrameLayout) inflater.inflate(R.layout.user_msg_layout, null);
     }
 
     FrameLayout getBotLayout() {
-        LayoutInflater inflater = LayoutInflater.from(GuiboActivity.this);
+        LayoutInflater inflater = LayoutInflater.from(this.getContext());
         return (FrameLayout) inflater.inflate(R.layout.bot_msg_layout, null);
     }
 }

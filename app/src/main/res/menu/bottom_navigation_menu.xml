@@ -14,9 +14,9 @@
         android:icon="@drawable/ic_shop"
         android:title="Comercios"/>
 
-    <item android:id="@+id/navigation_message"
+    <item android:id="@+id/navigation_chat"
         android:icon="@drawable/ic_message"
-        android:title="Mensajes"/>
+        android:title="Chat"/>
 
     <item android:id="@+id/navigation_more"
     android:icon="@drawable/ic_more"

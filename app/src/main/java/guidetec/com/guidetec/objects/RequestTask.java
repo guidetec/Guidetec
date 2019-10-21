@@ -8,15 +8,15 @@ import ai.api.AIServiceContext;
 import ai.api.AIServiceException;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
-import guidetec.com.guidetec.activities.GuiboActivity;
+import guidetec.com.guidetec.fragments.ChatFragment;
 
 public class RequestTask  extends AsyncTask<AIRequest, Void, AIResponse> {
 
-    Activity activity;
+    ChatFragment activity;
     private AIDataService aiDataService;
     private AIServiceContext customAIServiceContext;
 
-    RequestTask(Activity activity, AIDataService aiDataService, AIServiceContext customAIServiceContext){
+    RequestTask(ChatFragment activity, AIDataService aiDataService, AIServiceContext customAIServiceContext){
         this.activity = activity;
         this.aiDataService = aiDataService;
         this.customAIServiceContext = customAIServiceContext;
@@ -35,6 +35,6 @@ public class RequestTask  extends AsyncTask<AIRequest, Void, AIResponse> {
 
     @Override
     protected void onPostExecute(AIResponse aiResponse) {
-        ((GuiboActivity)activity).callback(aiResponse);
+        ((ChatFragment)activity).callback(aiResponse);
     }
 }

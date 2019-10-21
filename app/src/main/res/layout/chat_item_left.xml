@@ -18,7 +18,7 @@
         android:layout_toRightOf="@id/profile_image"
         android:layout_marginLeft="5dp"
         android:text="Hello"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/textGray"
         android:textSize="18sp"
         android:padding="8dp"
         android:background="@drawable/background_left"

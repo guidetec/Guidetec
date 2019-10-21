@@ -40,7 +40,7 @@
             android:name="guidetec.com.guidetec.activities.ContactSelect"
             android:theme="@style/AppTheme" />
         <activity android:name="guidetec.com.guidetec.activities.MessageActivity" />
-        <activity android:name="guidetec.com.guidetec.activities.GuiboActivity"></activity>
+        <activity android:name="guidetec.com.guidetec.fragments.ChatFragment"></activity>
     </application>
 
 </manifest>

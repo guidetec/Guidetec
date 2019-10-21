@@ -76,6 +76,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var imageProfile: CardView
     private lateinit var pr_image:ImageView
 
+    private lateinit var apProgressBar: RelativeLayout
 
     private val PReqCode:Int=1
     private lateinit var pickedImgUri:Uri
@@ -226,6 +227,8 @@ class ProfileActivity : AppCompatActivity() {
         imageProfile=findViewById(R.id.imageProfile)
         pr_image=findViewById(R.id.pr_image)
 
+        apProgressBar=findViewById(R.id.apProgressBar)
+
         //if(!user.imageUrl.equals(""))
           //  loadImageFromUrl(user.imageUrl,pr_image)
 
@@ -261,18 +264,12 @@ class ProfileActivity : AppCompatActivity() {
     }
     fun saveUserData(){
 
-        Alerter.create(this)
-            .setTitle("Actualizando")
-            .setText("¡Ya casi teminamos!")
-            .enableProgress(true)
-            .setProgressColorRes(R.color.darkGreen)
-            .setBackgroundColorRes(R.color.colorBlue)
-            .show()
 
         nameS=name.text.toString()
         snameS=sname.text.toString()
         fnameS=fname.text.toString()
         if(!TextUtils.isEmpty(nameS) or !TextUtils.isEmpty(snameS) or !TextUtils.isEmpty(fnameS)){
+            showProgressDialog()
             var user:User=userSharedPreference.getUser();
             user.name=nameS
             user.sname=snameS
@@ -280,19 +277,8 @@ class ProfileActivity : AppCompatActivity() {
 
             userSharedPreference.saveOrUpdateUser(user)
 
-            Alerter.hide()
-            Alerter.create(this@ProfileActivity)
-                .setTitle("¡Está hecho!")
-                .setText("Se ha actualizado tu información")
-                .setIcon(R.drawable.ic_complete)
-                .setEnterAnimation(R.anim.abc_slide_in_top)
-                .setExitAnimation(R.anim.alerter_exit)
-                .setIconColorFilter(0) // Optional - Removes white tint
-                .setBackgroundColorRes(R.color.colorBlue)
-                .show()
-
-
             EnableSaveItemButton()
+            deleteProgressDialog()
         }
         else{
             if(TextUtils.isEmpty(nameS))
@@ -312,6 +298,12 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    fun showProgressDialog(){
+        apProgressBar.visibility= View.VISIBLE
+    }
+    fun deleteProgressDialog(){
+        apProgressBar.visibility= View.GONE
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

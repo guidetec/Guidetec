@@ -1,0 +1,85 @@
+{
+  "commerce": [
+    {
+      "id": "COM001",
+      "name": "La pequeñita",
+      "image": "https://www.canr.msu.edu/contentAsset/image/abafcfa4-0293-4e9c-9d96-80f0caad1458/fileAsset/filter/Resize,Jpeg/resize_w/600/jpeg_q/100",
+      "clasif": "Restaurante",
+      "direc": "Vallarta 129-A",
+      "status": "Cerrado"
+    },
+    {
+      "id": "COM002",
+      "name": "Giralda",
+      "image": "https://www.canr.msu.edu/contentAsset/image/abafcfa4-0293-4e9c-9d96-80f0caad1458/fileAsset/filter/Resize,Jpeg/resize_w/600/jpeg_q/100",
+      "clasif": "Bar nocturno",
+      "direc": "Federico del Toro 11",
+      "status": "Abierto"
+    },
+    {
+      "id": "COM003",
+      "name": "A babor",
+      "image": "https://www.canr.msu.edu/contentAsset/image/abafcfa4-0293-4e9c-9d96-80f0caad1458/fileAsset/filter/Resize,Jpeg/resize_w/600/jpeg_q/100",
+      "clasif": "Bar y marisquería",
+      "direc": "Vallarta 129-A",
+      "status": "Cerrado"
+    },
+    {
+      "id": "COM004",
+      "name": "Casa de la papa",
+      "image": "https://www.canr.msu.edu/contentAsset/image/abafcfa4-0293-4e9c-9d96-80f0caad1458/fileAsset/filter/Resize,Jpeg/resize_w/600/jpeg_q/100",
+      "clasif": "Restaurante",
+      "direc": "Av. Obizpo 129-A",
+      "status": "Cerrado"
+    },
+    {
+      "id": "COM005",
+      "name": "Oxxo",
+      "image": "https://www.canr.msu.edu/contentAsset/image/abafcfa4-0293-4e9c-9d96-80f0caad1458/fileAsset/filter/Resize,Jpeg/resize_w/600/jpeg_q/100",
+      "clasif": "Tienda de autoservicio",
+      "direc": "Vallarta 129-A",
+      "status": "Abierto"
+    },
+    {
+      "id": "COM006",
+      "name": "La pequeñita",
+      "image": "https://www.canr.msu.edu/contentAsset/image/abafcfa4-0293-4e9c-9d96-80f0caad1458/fileAsset/filter/Resize,Jpeg/resize_w/600/jpeg_q/100",
+      "clasif": "Restaurante",
+      "direc": "Vallarta 129-A",
+      "status": "Cerrado"
+    },
+    {
+      "id": "COM007",
+      "name": "La pequeñita",
+      "image": "https://www.canr.msu.edu/contentAsset/image/abafcfa4-0293-4e9c-9d96-80f0caad1458/fileAsset/filter/Resize,Jpeg/resize_w/600/jpeg_q/100",
+      "clasif": "Restaurante",
+      "direc": "Vallarta 129-A",
+      "status": "Cerrado"
+    },
+    {
+      "id": "COM008",
+      "name": "La pequeñita",
+      "image": "https://www.canr.msu.edu/contentAsset/image/abafcfa4-0293-4e9c-9d96-80f0caad1458/fileAsset/filter/Resize,Jpeg/resize_w/600/jpeg_q/100",
+      "clasif": "Restaurante",
+      "direc": "Vallarta 129-A",
+      "status": "Cerrado"
+    },
+    {
+      "id": "COM009",
+      "name": "La pequeñita",
+      "image": "https://www.canr.msu.edu/contentAsset/image/abafcfa4-0293-4e9c-9d96-80f0caad1458/fileAsset/filter/Resize,Jpeg/resize_w/600/jpeg_q/100",
+      "clasif": "Restaurante",
+      "direc": "Vallarta 129-A",
+      "status": "Cerrado"
+    },
+    {
+      "id": "COM010",
+      "name": "La pequeñita",
+      "image": "https://www.canr.msu.edu/contentAsset/image/abafcfa4-0293-4e9c-9d96-80f0caad1458/fileAsset/filter/Resize,Jpeg/resize_w/600/jpeg_q/100",
+      "clasif": "Restaurante",
+      "direc": "Vallarta 129-A",
+      "status": "Cerrado"
+    }
+
+  ]
+}

@@ -1,47 +1,25 @@
 package guidetec.com.guidetec.activities;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.location.LocationComponent;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.maps.SupportMapFragment;
-
-import java.util.HashMap;
-import java.util.List;
 
 import guidetec.com.guidetec.R;
 import guidetec.com.guidetec.account.LoginActivity;
-import guidetec.com.guidetec.fragments.ARFragment;
+import guidetec.com.guidetec.fragments.ChatFragment;
 import guidetec.com.guidetec.fragments.MapFragment;
 import guidetec.com.guidetec.fragments.MessageFragment;
-import guidetec.com.guidetec.fragments.PlaceFragment;
+import guidetec.com.guidetec.fragments.CommerceFragment;
 import guidetec.com.guidetec.fragments.MoreFragment;
 import guidetec.com.guidetec.fragments.RouteFragment;
 
@@ -57,9 +35,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     //Fragments
     MapFragment mapFragment2 = new MapFragment();
-    PlaceFragment placeFragment = new PlaceFragment();
+    CommerceFragment commerceFragment = new CommerceFragment();
     RouteFragment routeFragment = new RouteFragment();
-    MessageFragment messageFragment = new MessageFragment();
+    ChatFragment chatFragment = new ChatFragment();
     MoreFragment moreFragment = new MoreFragment();
 
     // Create fragment
@@ -158,10 +136,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container, routeFragment).commit();
                 return true;
             case R.id.navigation_commerce:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, placeFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, commerceFragment).commit();
                 return true;
-            case R.id.navigation_message:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, messageFragment).commit();
+            case R.id.navigation_chat:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, chatFragment).commit();
                 return true;
             case R.id.navigation_more:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container, moreFragment).commit();

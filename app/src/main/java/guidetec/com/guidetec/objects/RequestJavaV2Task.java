@@ -9,17 +9,17 @@ import com.google.cloud.dialogflow.v2beta1.QueryInput;
 import com.google.cloud.dialogflow.v2beta1.SessionName;
 import com.google.cloud.dialogflow.v2beta1.SessionsClient;
 
-import guidetec.com.guidetec.activities.GuiboActivity;
+import guidetec.com.guidetec.fragments.ChatFragment;
 
 
 public class RequestJavaV2Task extends AsyncTask<Void, Void, DetectIntentResponse> {
 
-    Activity activity;
+    ChatFragment activity;
     private SessionName session;
     private SessionsClient sessionsClient;
     private QueryInput queryInput;
 
-    public RequestJavaV2Task(Activity activity, SessionName session, SessionsClient sessionsClient, QueryInput queryInput) {
+    public RequestJavaV2Task(ChatFragment activity, SessionName session, SessionsClient sessionsClient, QueryInput queryInput) {
         this.activity = activity;
         this.session = session;
         this.sessionsClient = sessionsClient;
@@ -43,6 +43,6 @@ public class RequestJavaV2Task extends AsyncTask<Void, Void, DetectIntentRespons
 
     @Override
     protected void onPostExecute(DetectIntentResponse response) {
-        ((GuiboActivity) activity).callbackV2(response);
+        ((ChatFragment) activity).callbackV2(response);
     }
 }
