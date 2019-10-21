@@ -24,7 +24,11 @@
         android:background="@drawable/navigation_bg"
         app:menu="@menu/bottom_navigation_menu"
         app:itemIconTint="@drawable/item_selected"
-        app:itemTextColor="@drawable/item_selected">
+        app:itemTextColor="@drawable/item_selected"
+        app:elevation="20dp"
+        app:itemBackground="@drawable/navigation_bg"
+        app:labelVisibilityMode="labeled"
+        >
 
     </android.support.design.widget.BottomNavigationView>
 

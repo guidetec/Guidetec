@@ -1,9 +1,9 @@
 package guidetec.com.guidetec.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,8 +29,8 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import guidetec.com.guidetec.R;
 import guidetec.com.guidetec.adapter.MessageAdapter;
+import guidetec.com.guidetec.classes.User;
 import guidetec.com.guidetec.model.Chat;
-import guidetec.com.guidetec.model.User;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -91,13 +92,13 @@ public class MessageActivity extends AppCompatActivity {
                 User user=dataSnapshot.getValue(User.class);
                 name.setText(user.getName());
 
-                if(user.getImage_url().equals("default")){
+                if(user.getImageUrl().equals("default")){
                     profile_image.setImageResource(R.drawable.ic_hat);
                 }
                 else{
-                    Glide.with(MessageActivity.this).load(user.getImage_url()).into(profile_image);
+                    Glide.with(MessageActivity.this).load(user.getImageUrl()).into(profile_image);
                 }
-                readMessages(fuser.getUid(),user.getId(),user.getImage_url());
+                readMessages(fuser.getUid(),user.getUuid(),user.getImageUrl());
             }
 
             @Override

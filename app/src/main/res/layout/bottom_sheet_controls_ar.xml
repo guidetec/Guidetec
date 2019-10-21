@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="300dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+    app:behavior_hideable="true"
+    android:paddingTop="20dp">
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="match_parent"
         android:background="@color/colorWhite"
         android:clipToPadding="true"
-
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
         app:layout_behavior="@string/bottom_sheet_behavior"        >
@@ -19,40 +21,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:divider="?android:dividerHorizontal"
-            android:showDividers="middle">
+            android:divider="?android:dividerHorizontal">
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <ImageView
-                    android:id="@+id/bsc_image1"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_route"/>
+                android:paddingRight="20dp"
+                android:layout_alignParentTop="true"
+                android:id="@+id/header_part"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
                 <TextView
-                    android:id="@+id/bsc_tv1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/bsc_image1"
-                    android:layout_centerVertical="true"
+                    android:text="Filtros aplicados"
+                    android:textColor="@color/textGray"
                     android:textSize="18sp"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
                     android:textStyle="bold"
-                    android:layout_marginLeft="50dp"
-                    android:text="Rutas"
-                    android:textColor="@color/darkGray"/>
-                <Switch
-                    android:id="@+id/bsc_switch1"
-                    android:layout_width="60dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:thumb="@drawable/round_thumb"
-                    android:track="@drawable/round_track"/>
+                    android:id="@+id/title_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -73,6 +60,7 @@
                     android:layout_height="match_parent"
                     android:layout_toRightOf="@id/bsc_image2"
                     android:layout_centerVertical="true"
+                    android:fontFamily="sans-serif-light"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginLeft="50dp"
@@ -102,6 +90,7 @@
                     android:src="@drawable/ic_build"/>
                 <TextView
                     android:id="@+id/bsc_tv_3"
+                    android:fontFamily="sans-serif-light"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_toRightOf="@id/bsc_image3"
@@ -109,7 +98,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginLeft="50dp"
-                    android:text="Edificios"
+                    android:text="Edificios públicos"
                     android:textColor="@color/darkGray"/>
                 <Switch
                     android:id="@+id/bsc_switch3"
@@ -134,6 +123,7 @@
                     android:layout_height="40dp"
                     android:src="@drawable/ic_monument"/>
                 <TextView
+                    android:fontFamily="sans-serif-light"
                     android:id="@+id/bsc_tv4"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -142,7 +132,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginLeft="50dp"
-                    android:text="Monumentos"
+                    android:text="Zonas arqueológicas"
                     android:textColor="@color/darkGray"/>
                 <Switch
                     android:id="@+id/bsc_switch4"
@@ -167,6 +157,7 @@
                     android:layout_height="40dp"
                     android:src="@drawable/ic_parks_plazas"/>
                 <TextView
+                    android:fontFamily="sans-serif-light"
                     android:id="@+id/bsc_tv5"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -200,6 +191,7 @@
                     android:layout_height="40dp"
                     android:src="@drawable/ic_church"/>
                 <TextView
+                    android:fontFamily="sans-serif-light"
                     android:id="@+id/bsc_tv6"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -212,171 +204,6 @@
                     android:textColor="@color/darkGray"/>
                 <Switch
                     android:id="@+id/bsc_switch6"
-                    android:layout_width="60dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:thumb="@drawable/round_thumb"
-                    android:track="@drawable/round_track"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <ImageView
-                    android:id="@+id/bsc_image7"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_coffee"/>
-                <TextView
-                    android:id="@+id/bsc_tv7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/bsc_image7"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="50dp"
-                    android:text="Café"
-                    android:textColor="@color/darkGray"/>
-                <Switch
-                    android:id="@+id/bsc_switch7"
-                    android:layout_width="60dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:thumb="@drawable/round_thumb"
-                    android:track="@drawable/round_track"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <ImageView
-                    android:id="@+id/bsc_image8"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_food"/>
-                <TextView
-                    android:id="@+id/bsc_tv8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/bsc_image8"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="50dp"
-                    android:text="Comida"
-                    android:textColor="@color/darkGray"/>
-                <Switch
-                    android:id="@+id/bsc_switch8"
-                    android:layout_width="60dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:thumb="@drawable/round_thumb"
-                    android:track="@drawable/round_track"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <ImageView
-                    android:id="@+id/bsc_image9"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_bar"/>
-                <TextView
-                    android:id="@+id/bsc_tv9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/bsc_image9"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="50dp"
-                    android:text="Bebidas"
-                    android:textColor="@color/darkGray"/>
-                <Switch
-                    android:id="@+id/bsc_switch9"
-                    android:layout_width="60dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:thumb="@drawable/round_thumb"
-                    android:track="@drawable/round_track"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <ImageView
-                    android:id="@+id/bsc_image10"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_shopping_bag"/>
-                <TextView
-                    android:id="@+id/bsc_tv10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/bsc_image10"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="50dp"
-                    android:text="Comercio general"
-                    android:textColor="@color/darkGray"/>
-                <Switch
-                    android:id="@+id/bsc_switch10"
-                    android:layout_width="60dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:thumb="@drawable/round_thumb"
-                    android:track="@drawable/round_track"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <ImageView
-                    android:id="@+id/bsc_image11"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_hotel"/>
-                <TextView
-                    android:id="@+id/bsc_tv11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/bsc_image11"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="50dp"
-                    android:text="Hospedaje"
-                    android:textColor="@color/darkGray"/>
-                <Switch
-                    android:id="@+id/bsc_switch11"
                     android:layout_width="60dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"

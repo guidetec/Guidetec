@@ -1,29 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.MapFragment">
+    tools:context=".fragments.MapFragment"
+    android:background="@color/colorWhite">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/toolbar_map_fragment"
-            android:id="@+id/tool_mapfra"/>
 
+        <RelativeLayout
+            android:id="@+id/header_map"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:text="Lugares"
+                android:textColor="@color/darkBlue"
+                android:textSize="26dp"
+                android:fontFamily="sans-serif-light"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/search_tasks"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_search_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"/>
+
+            <ImageView
+                android:src="@drawable/ic_synchronize"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_toStartOf="@id/search_tasks"
+                android:layout_marginRight="10dp"/>
+
+        </RelativeLayout>
         <com.mapbox.mapboxsdk.maps.MapView
+            android:layout_below="@id/header_map"
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tool_mapfra"
-            mapbox:mapbox_cameraTargetLat="40.73581"
-            mapbox:mapbox_cameraTargetLng="-73.99155"
-            mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
             mapbox:mapbox_cameraZoom="13" />
+
         <Button
             android:id="@+id/fab_controls_ar"
             android:layout_width="wrap_content"
@@ -43,43 +74,49 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:drawableLeft="@drawable/ic_controls_on"/>
-    </RelativeLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fb_navigation_vision"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="144dp"
-        android:layout_marginRight="16dp"
-        android:layout_gravity="bottom|right"
-        android:background="@color/colorWhite"
-        android:backgroundTint="@color/colorWhite"
-        android:elevation="6dp"
-        android:src="@drawable/ic_vision"
-        mapbox:backgroundTint="@color/colorWhite"/>
-    <android.support.design.widget.FloatingActionButton
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fb_navigation_vision"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="144dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorWhite"
+            android:backgroundTint="@color/colorWhite"
+            android:elevation="6dp"
+            android:src="@drawable/ic_vision"
+            mapbox:backgroundTint="@color/colorWhite"/>
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/fb_navigation_normal"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_marginBottom="80dp"
             android:layout_marginRight="16dp"
-            android:layout_gravity="bottom|right"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             android:background="@color/colorWhite"
             android:backgroundTint="@color/colorWhite"
             android:elevation="6dp"
             android:src="@drawable/ic_navigation_personal"
             mapbox:backgroundTint="@color/colorWhite"/>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fb_location"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_gravity="bottom|right"
-        android:background="@color/colorWhite"
-        android:backgroundTint="@color/colorWhite"
-        android:elevation="6dp"
-        android:src="@drawable/ic_gps"
-        mapbox:backgroundTint="@color/colorWhite"/>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/back_to_camera_tracking_mode"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorWhite"
+            android:backgroundTint="@color/colorWhite"
+            android:elevation="6dp"
+            android:src="@drawable/ic_gps"
+            mapbox:backgroundTint="@color/colorWhite"/>
+    </RelativeLayout>
+    <include
+        layout="@layout/bottom_sheet_controls_ar"
+        android:id="@+id/bottom_design"/>
 
-</FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

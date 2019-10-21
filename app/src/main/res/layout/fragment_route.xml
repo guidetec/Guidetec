@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.MapFragment"
+    android:background="@color/colorWhite">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/header_map"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:text="Rutas"
+                android:textColor="@color/darkBlue"
+                android:textSize="26dp"
+                android:fontFamily="sans-serif-light"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/search_tasks"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_search_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"/>
+
+            <ImageView
+                android:src="@drawable/ic_synchronize"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_toStartOf="@id/search_tasks"
+                android:layout_marginRight="10dp"/>
+
+        </RelativeLayout>
+        <com.mapbox.mapboxsdk.maps.MapView
+            android:layout_below="@id/header_map"
+            android:id="@+id/mapViewRoute"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            mapbox:mapbox_cameraZoom="13" />
+
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fb_navigation_normal"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorWhite"
+            android:backgroundTint="@color/colorWhite"
+            android:elevation="6dp"
+            android:src="@drawable/ic_navigation_personal"
+            mapbox:backgroundTint="@color/colorWhite"/>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/back_to_camera_tracking_mode"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorWhite"
+            android:backgroundTint="@color/colorWhite"
+            android:elevation="6dp"
+            android:src="@drawable/ic_gps"
+            mapbox:backgroundTint="@color/colorWhite"/>
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

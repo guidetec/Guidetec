@@ -1,7 +1,8 @@
 package guidetec.com.guidetec.account;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
 
 import guidetec.com.guidetec.R;
 

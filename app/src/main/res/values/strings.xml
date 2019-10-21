@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">Guidetec</string>
+    <string name="app_name">Yeiyá</string>
     <string name="loading">Cargando…</string>
-    <string name="auth_failed">Authentication failed</string>
     <string name="mapboxToken">pk.eyJ1IjoiZ3VpZGV0ZWMiLCJhIjoiY2ptbWo0aTUyMDI5ZjNrbHVxYnFob29uaSJ9.DVPv3_Q8H_2-oDr784OYug</string>
 
     <string name="message_sigin_correct_title">¡Registro exitoso!</string>
@@ -9,7 +8,16 @@
     <string name="message_sigin_fail_title">¡Registro fallido!</string>
     <string name="message_sigin_fail_desciption">El registro no se ha completado. Es posible que el correo ya se encuentre registrado</string>
 
+    <string name="message_forgot">Se enviará un enlace por correo para reestablecer tu contraseña. ¿Deseas confirmar?
+    </string>
+    <string name="email">Correo</string>
+    <string name="password_strength_weak">Debil</string>
+    <string name="password_strength_medium">Media</string>
+    <string name="password_strength_strong">Fuerte</string>
+    <string name="password_strength_very_strong">Muy fuerte</string>
+    <string name="signupPassword">Tu contraseña</string>
+    <string name="signupFirstName">Tu nombre</string>
+    <string name="signupPhone">Tu número de teléfono</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

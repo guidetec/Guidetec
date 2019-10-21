@@ -1,24 +1,20 @@
 package guidetec.com.guidetec.fragments;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,9 +33,8 @@ import java.util.Set;
 import guidetec.com.guidetec.R;
 import guidetec.com.guidetec.activities.ContactSelect;
 import guidetec.com.guidetec.adapter.UserAdapter;
+import guidetec.com.guidetec.classes.User;
 import guidetec.com.guidetec.model.Chat;
-import guidetec.com.guidetec.model.Chatlist;
-import guidetec.com.guidetec.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -164,7 +159,7 @@ private void readChats(){
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     User user=snapshot.getValue(User.class);
                     for(String id: userList){
-                       if(user.getId().equals(id)){
+                       if(user.getUuid().equals(id)){
                            mUsers.add(user);
                        }
                     }

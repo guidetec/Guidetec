@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+
 import guidetec.com.guidetec.R;
 
 /**
@@ -19,7 +20,7 @@ public class BottomSheetFragmentAr extends BottomSheetDialogFragment {
 
     @Override
     public void setupDialog(Dialog dialog, int style) {
-        super.setupDialog(dialog, style);
+        //super.setupDialog(dialog, style);
 
         //Set the custom view
         View view = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_controls_ar, null);

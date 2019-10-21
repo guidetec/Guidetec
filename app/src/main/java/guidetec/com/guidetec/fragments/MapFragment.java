@@ -1,9 +1,7 @@
 package guidetec.com.guidetec.fragments;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -14,7 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -32,8 +30,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mapbox.android.core.location.LocationEngine;
-import com.mapbox.android.core.location.LocationEnginePriority;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
@@ -48,32 +44,30 @@ import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
-import com.mapbox.mapboxsdk.annotations.MarkerViewOptions;
 import com.mapbox.mapboxsdk.annotations.Polyline;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
-import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
+import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
+import com.mapbox.mapboxsdk.location.LocationComponentOptions;
+import com.mapbox.mapboxsdk.location.OnCameraTrackingChangedListener;
+import com.mapbox.mapboxsdk.location.OnLocationClickListener;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.location.modes.RenderMode;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 
 // classes to calculate a route
-import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
-import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
-import com.mapbox.api.directions.v5.models.DirectionsResponse;
-import com.mapbox.api.directions.v5.models.DirectionsRoute;
 
-import guidetec.com.guidetec.activities.MainActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import android.util.Log;
 
 
 import org.json.JSONArray;
@@ -90,14 +84,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import guidetec.com.guidetec.R;
 import guidetec.com.guidetec.database.MarkerPlace;
 
-import static android.support.constraint.Constraints.TAG;
 import static com.mapbox.core.constants.Constants.PRECISION_6;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MapFragment extends Fragment implements OnMapReadyCallback, PermissionsListener,
-        MapboxMap.OnMapClickListener, MapboxMap.OnMapLongClickListener {
+public class MapFragment extends Fragment implements OnMapReadyCallback, OnLocationClickListener,
+PermissionsListener, OnCameraTrackingChangedListener {
 
     private MapView mapView;
     private Button fab_controls_ar;
@@ -135,12 +130,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Permiss
     private MapboxMap mapboxMap;
     private PermissionsManager permissionsManager;
     private Location originLocation;
+    private LocationComponent locationComponent;
+    private boolean isInTrackingMode;
 
     ArrayList<MarkerPlace> listaLugares;
     ArrayList<String> idLugares;
 
     DatabaseReference reference;
     DatabaseReference reference_route;
+
+    private BottomSheetBehavior<View> bottomSheetBehavior;
+    private View view;
 
     public MapFragment() {
         // Required empty public constructor
@@ -154,24 +154,111 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Permiss
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_map, container, false);
+
 
         Mapbox.getInstance(getActivity(), "pk.eyJ1IjoiZ3VpZGV0ZWMiLCJhIjoiY2ptbWo0aTUyMDI5ZjNrbHVxYnFob29uaSJ9.DVPv3_Q8H_2-oDr784OYug");
+
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_map, container, false);
         mapView = (MapView) view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
+
+        configureBS();
 
         fab_controls_ar = (Button) view.findViewById(R.id.fab_controls_ar);
         fab_controls_ar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetFragmentAr fragment = new BottomSheetFragmentAr();
-                fragment.show(getActivity().getSupportFragmentManager(), TAG);
+                //BottomSheetFragmentAr fragment = new BottomSheetFragmentAr();
+                //fragment.show(getActivity().getSupportFragmentManager(), TAG);
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                }else{
+                    //mMap.uiSettings.setAllGesturesEnabled(false)
+                    //mMap.setOnMapClickListener(null)
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
             }
         });
         mapView.getMapAsync(this::onMapReady);
 
-        stops = new ArrayList<>();
+
+
+        //End
+
+
+
+        // Add the origin Point to the list
+
+
+        return view;
+    }
+
+    @Override
+    public void onMapReady(MapboxMap mapboxMap) {
+        this.mapboxMap = mapboxMap;
+        mapboxMap.setStyle(Style.LIGHT, new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                enableLocationComponent(style);
+                /*listaLugares=new ArrayList<MarkerPlace>();
+                //Start
+                idLugares=new ArrayList<String>();
+                stops = new ArrayList<>();
+                addFirstStopToStopsList();
+
+                reference_route = FirebaseDatabase.getInstance().getReference("routes");
+                reference_route.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        //ciclo para las rutas
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            //Para las ubicaciones
+                            for (DataSnapshot locationSnapshot : snapshot.child("coordinates").getChildren()) {
+                                //Toast.makeText(getActivity(), locationSnapshot.getKey() + " " + locationSnapshot.getValue(), Toast.LENGTH_LONG).show();
+                                idLugares.add(locationSnapshot.getValue().toString());
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                //Toast.makeText(getContext(),"Actual",Toast.LENGTH_LONG).show();
+                DatabaseReference local=FirebaseDatabase.getInstance().getReference("lugares");
+                local.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                            MarkerPlace mp=snapshot.getValue(MarkerPlace.class);
+                            for(String id:idLugares){
+                                if(id.equals(mp.getId())){
+                                    if (alreadyTwelveMarkersOnMap()) {
+                                        Toast.makeText(getContext(), "Se supero el máximo", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        LatLng p=new LatLng(Double.parseDouble(mp.getLat()),Double.parseDouble(mp.getLon()));
+                                        addDestinationMarker(p);
+                                        addPointToStopsList(p);
+                                        getOptimizedRoute(stops);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });*/
+            }
+
+        });
+
+        listaLugares=new ArrayList<>();
 
         //Start
         reference = FirebaseDatabase.getInstance().getReference("lugares");
@@ -192,83 +279,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Permiss
 
             }
         });
-        //End
+        //enableLocationComponent();
 
-        //Start
-        idLugares=new ArrayList<String>();
-
-        reference_route = FirebaseDatabase.getInstance().getReference("routes");
-        reference_route.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //ciclo para las rutas
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    //Para las ubicaciones
-                    for (DataSnapshot locationSnapshot : snapshot.child("locations").getChildren()) {
-                        //Toast.makeText(getActivity(), locationSnapshot.getKey() + " " + locationSnapshot.getValue(), Toast.LENGTH_LONG).show();
-                        idLugares.add(locationSnapshot.getValue().toString());
-
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        Toast.makeText(getContext(),"Actual",Toast.LENGTH_LONG).show();
-        DatabaseReference local=FirebaseDatabase.getInstance().getReference("lugares");
-        local.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    MarkerPlace mp=snapshot.getValue(MarkerPlace.class);
-                    for(String id:idLugares){
-                        if(id.equals(mp.getId())){
-                            if (alreadyTwelveMarkersOnMap()) {
-                                Toast.makeText(getContext(), "Se supero el máximo", Toast.LENGTH_LONG).show();
-                            } else {
-                                LatLng p=new LatLng(Double.parseDouble(mp.getLat()),Double.parseDouble(mp.getLon()));
-                                addDestinationMarker(p);
-                                addPointToStopsList(p);
-                                getOptimizedRoute(stops);
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        // Add the origin Point to the list
-
-
-        return view;
-    }
-
-    @Override
-    public void onMapReady(MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
-        mapboxMap.setStyle(Style.LIGHT);
-        enableLocationComponent();
-
-        /* Image: An image is loaded and added to the map. */
+        /* Image: An image is loaded and added to the map.
         Bitmap icon = BitmapFactory.decodeResource(
                 MapFragment.this.getResources(), R.drawable.custom_marker);
         mapboxMap.addImage(MARKER_IMAGE, icon);
+*/
 
-        listaLugares=new ArrayList<MarkerPlace>();
-        addFirstStopToStopsList();
 
         // Load and Draw the GeoJSON
         new DrawGeoJson().execute();
         //addMarkers();
         //addRoutes();
+
+
     }
 
     private void addMarkers() {
@@ -324,7 +349,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Permiss
 
             }
         });
-        Toast.makeText(getContext(),"Actual",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(),"Actual",Toast.LENGTH_LONG).show();
         DatabaseReference local=FirebaseDatabase.getInstance().getReference("lugares");
         local.addValueEventListener(new ValueEventListener() {
             @Override
@@ -375,21 +400,59 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Permiss
         return bitmap;
     }
 
-    @SuppressWarnings({"MissingPermission"})
-    private void enableLocationComponent() {
+
+    @SuppressWarnings( {"MissingPermission"})
+    private void enableLocationComponent(@NonNull Style loadedMapStyle) {
         // Check if permissions are enabled and if not request
-        if (PermissionsManager.areLocationPermissionsGranted(this.getActivity())) {
-            // Activate the MapboxMap LocationComponent to show user location
-            // Adding in LocationComponentOptions is also an optional parameter
-            LocationComponent locationComponent = mapboxMap.getLocationComponent();
-            locationComponent.activateLocationComponent(this.getActivity());
+        if (PermissionsManager.areLocationPermissionsGranted(this.getContext())) {
+
+            // Create and customize the LocationComponent's options
+            LocationComponentOptions customLocationComponentOptions = LocationComponentOptions.builder(this.getContext())
+                    .elevation(5)
+                    .accuracyAlpha(.6f)
+                    .build();
+
+            // Get an instance of the component
+            locationComponent = mapboxMap.getLocationComponent();
+
+            LocationComponentActivationOptions locationComponentActivationOptions =
+                    LocationComponentActivationOptions.builder(this.getContext(), loadedMapStyle)
+                            .locationComponentOptions(customLocationComponentOptions)
+                            .build();
+
+            // Activate with options
+            locationComponent.activateLocationComponent(locationComponentActivationOptions);
+
+            // Enable to make component visible
             locationComponent.setLocationComponentEnabled(true);
+
             // Set the component's camera mode
             locationComponent.setCameraMode(CameraMode.TRACKING);
 
-            //Set render mode
+            // Set the component's render mode
             locationComponent.setRenderMode(RenderMode.COMPASS);
-            originLocation = locationComponent.getLastKnownLocation();
+
+            // Add the location icon click listener
+            locationComponent.addOnLocationClickListener(this);
+
+            // Add the camera tracking listener. Fires if the map camera is manually moved.
+            locationComponent.addOnCameraTrackingChangedListener(this);
+
+            view.findViewById(R.id.back_to_camera_tracking_mode).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!isInTrackingMode) {
+                        isInTrackingMode = true;
+                        locationComponent.setCameraMode(CameraMode.TRACKING);
+                        locationComponent.zoomWhileTracking(16f);
+                        //Toast.makeText(LocationComponentOptionsActivity.this, getString(R.string.tracking_enabled),
+                          //      Toast.LENGTH_SHORT).show();
+                    } else {
+                       // Toast.makeText(LocationComponentOptionsActivity.this, getString(R.string.tracking_already_enabled),
+                         //       Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
         } else {
             permissionsManager = new PermissionsManager(this);
@@ -398,7 +461,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Permiss
     }
 
     private Location getLastKnownLocation() {
-        return originLocation;
+        return locationComponent.getLastKnownLocation();
     }
     @Override
     public void onExplanationNeeded(List<String> permissionsToExplain) {
@@ -408,7 +471,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Permiss
     @Override
     public void onPermissionResult(boolean granted) {
         if (granted) {
-            enableLocationComponent();
+            mapboxMap.getStyle(new Style.OnStyleLoaded() {
+                @Override
+                public void onStyleLoaded(@NonNull Style style) {
+                    enableLocationComponent(style);
+                }
+            });
         } else {
             Toast.makeText(this.getActivity(), "Permiso denegado", Toast.LENGTH_LONG).show();
             this.getActivity().finish();
@@ -457,15 +525,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Permiss
                 });
     }
 
-    @Override
-    public void onMapClick(@NonNull LatLng point) {
 
-    }
-
-    @Override
-    public void onMapLongClick(@NonNull LatLng point) {
-
-    }
 
     private void addFirstStopToStopsList() {
 // Set first stop
@@ -473,7 +533,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Permiss
         if(l!=null){
             origin = Point.fromLngLat(l.getLongitude(), l.getLatitude());
             stops.add(origin);
-            Toast.makeText(this.getContext(), "Correct", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this.getContext(), "Correct", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -557,55 +617,98 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Permiss
         }
         return points;
     }
-/*
-    @Override
-    public void onStart() {
-        super.onStart();
-        mapView.onStart();
+
+    public void configureBS(){
+        //Configure BottonSheet
+        View bottomSheet=view.findViewById(R.id.bottom_design);
+        bottomSheetBehavior= BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View view, int i) {
+                if(bottomSheetBehavior.getState()==BottomSheetBehavior.STATE_HIDDEN){
+                    //mapView.uiSettings.setAllGesturesEnabled(true)
+                    //mMap.setOnMapClickListener(this@NewOrchardActivity)
+                }else{
+                    //mMap.uiSettings.setAllGesturesEnabled(false)
+                    //mMap.setOnMapClickListener(null)
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View view, float v) {
+
+            }
+        });
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mapView.onResume();
+    public void onCameraTrackingDismissed() {
+        isInTrackingMode=false;
+
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        mapView.onPause();
+    public void onCameraTrackingChanged(int currentMode) {
+
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        mapView.onStop();
+    public void onLocationComponentClick() {
+
     }
 
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        // Cancel the directions API request
-        if (optimizedClient != null) {
-            optimizedClient.cancelCall();
+    /*
+        @Override
+        public void onStart() {
+            super.onStart();
+            mapView.onStart();
         }
-        if (mapboxMap != null) {
-            mapboxMap.removeOnMapClickListener(this);
-        }
-        mapView.onDestroy();
-    }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
-    }*/
+        @Override
+        public void onResume() {
+            super.onResume();
+            mapView.onResume();
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            mapView.onPause();
+        }
+
+        @Override
+        public void onStop() {
+            super.onStop();
+            mapView.onStop();
+        }
+
+        @Override
+        public void onLowMemory() {
+            super.onLowMemory();
+            mapView.onLowMemory();
+        }
+
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+            // Cancel the directions API request
+            if (optimizedClient != null) {
+                optimizedClient.cancelCall();
+            }
+            if (mapboxMap != null) {
+                mapboxMap.removeOnMapClickListener(this);
+            }
+            mapView.onDestroy();
+        }
+
+        @Override
+        public void onSaveInstanceState(@NonNull Bundle outState) {
+            super.onSaveInstanceState(outState);
+            mapView.onSaveInstanceState(outState);
+        }*/
 private class DrawGeoJson extends AsyncTask<Void, Void, List<LatLng>> {
     @Override
     protected List<LatLng> doInBackground(Void... voids) {

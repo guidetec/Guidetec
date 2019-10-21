@@ -1,14 +1,12 @@
 package guidetec.com.guidetec.activities;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -16,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,11 +29,11 @@ import java.util.List;
 
 import guidetec.com.guidetec.R;
 import guidetec.com.guidetec.adapter.UserAdapter;
-import guidetec.com.guidetec.model.User;
+import guidetec.com.guidetec.classes.User;
 
 public class ContactSelect extends AppCompatActivity {
 
-    private android.support.v7.widget.Toolbar toolbar;
+    private Toolbar toolbar;
 
     private ImageButton btn_contact_search,btn_contact_close,btn_contact_refresh,btn_contact_back;
     private RelativeLayout layout_contact_busqueda;
@@ -125,7 +124,7 @@ public class ContactSelect extends AppCompatActivity {
                     User user=snapshot.getValue(User.class);
                     assert user!=null;
                     assert firebaseUser!=null;
-                    if(!user.getId().equals(firebaseUser.getUid())){
+                    if(!user.getUuid().equals(firebaseUser.getUid())){
                         users.add(user);
                     }
                 }

@@ -11,13 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 import guidetec.com.guidetec.R;
 import guidetec.com.guidetec.activities.MessageActivity;
-import guidetec.com.guidetec.model.User;
+import guidetec.com.guidetec.classes.User;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private Context context;
@@ -44,17 +45,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user=users.get(position);
         holder.nombre.setText(user.getName());
-        if(user.getImage_url().equals("default")){
+        if(user.getImageUrl().equals("default")){
             holder.image.setImageResource(R.drawable.ic_hat);
         }else{
-            Glide.with(context).load(user.getImage_url()).into(holder.image);
+            Glide.with(context).load(user.getImageUrl()).into(holder.image);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context,MessageActivity.class);
-                intent.putExtra("userid",user.getId());
+                intent.putExtra("userid",user.getUuid());
                 context.startActivity(intent);
                 if(tipo==0){
                     ((Activity)context).finish();
